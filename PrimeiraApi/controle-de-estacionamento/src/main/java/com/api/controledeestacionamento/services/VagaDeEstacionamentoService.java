@@ -5,6 +5,7 @@ import com.api.controledeestacionamento.repositories.IVagaDeEstacionamentoReposi
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class VagaDeEstacionamentoService  implements IVagaDeEstacionamentoService {
@@ -15,9 +16,25 @@ public class VagaDeEstacionamentoService  implements IVagaDeEstacionamentoServic
         this.vagaDeEstacionamentoRepository = vagaDeEstacionamentoRepository;
     }
 
-
+    //se der alguma coisa errada, ele vai dar um rollback
     @Transactional
-    public Object salvarVagaDeEstacionamento(VagaDeEstacionamentoModel vagaDeEstacionamento) {
+    public Object salvar(VagaDeEstacionamentoModel vagaDeEstacionamento) {
         return vagaDeEstacionamentoRepository.save(vagaDeEstacionamento);
+    }
+
+    public boolean existePorPlacaDoCarro(String placaDoCarro) {
+        return vagaDeEstacionamentoRepository.existsByPlacaDoCarro(placaDoCarro);
+    }
+
+    public boolean existePorNumeroDaVaga(String numeroDaVaga) {
+        return vagaDeEstacionamentoRepository.existsByNumeroDaVaga(numeroDaVaga);
+    }
+
+    public boolean existePorApartamentoEBloco(String apartamento, String bloco) {
+        return vagaDeEstacionamentoRepository.existsByApartamentoAndBloco(apartamento, bloco);
+    }
+
+    public List<VagaDeEstacionamentoModel> findAll() {
+        return vagaDeEstacionamentoRepository.findAll();
     }
 }
