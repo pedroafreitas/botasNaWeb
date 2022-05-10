@@ -2,10 +2,13 @@ package com.api.controledeestacionamento.services;
 
 import com.api.controledeestacionamento.models.VagaDeEstacionamentoModel;
 import com.api.controledeestacionamento.repositories.IVagaDeEstacionamentoRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class VagaDeEstacionamentoService  implements IVagaDeEstacionamentoService {
@@ -36,5 +39,15 @@ public class VagaDeEstacionamentoService  implements IVagaDeEstacionamentoServic
 
     public List<VagaDeEstacionamentoModel> findAll() {
         return vagaDeEstacionamentoRepository.findAll();
+    }
+
+    @Override
+    public Optional<VagaDeEstacionamentoModel> findById(UUID idVaga) {
+        return vagaDeEstacionamentoRepository.findById(idVaga);
+    }
+
+    @Override
+    public void deleteVaga(VagaDeEstacionamentoModel vagaDeEstacionamentoModel) {
+        vagaDeEstacionamentoRepository.delete(vagaDeEstacionamentoModel);
     }
 }
